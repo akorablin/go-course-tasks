@@ -21,7 +21,10 @@ import "fmt"
 // TODO: объяви блок констант с iota для статусов заказа:
 // StatusNew, StatusInWork, StatusDone, StatusCancelled
 const (
-// TODO: заполни константы здесь
+	StatusNew = iota
+	StatusInWork
+	StatusDone
+	StatusCancelled
 )
 
 // TODO: напиши функцию statusName, которая принимает int
@@ -32,5 +35,20 @@ func main() {
 	statuses := []int{0, 1, 2, 3, 99}
 	for _, s := range statuses {
 		fmt.Printf("Статус %d: %s\n", s, statusName(s))
+	}
+}
+
+func statusName(i int) string {
+	switch i {
+	case 0:
+		return "StatusNew"
+	case 1:
+		return "StatusInWork"
+	case 2:
+		return "StatusDone"
+	case 3:
+		return "StatusCancelled"
+	default:
+		return "Неизвестный статус"
 	}
 }
