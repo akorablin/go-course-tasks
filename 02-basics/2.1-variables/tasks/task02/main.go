@@ -16,13 +16,29 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // TODO: объяви блок констант с iota для статусов заказа:
 // StatusNew, StatusInWork, StatusDone, StatusCancelled
+
 const (
-// TODO: заполни константы здесь
+	StatusNew = iota
+	StatusInWork
+	StatusDone
+	StatusCancelled
 )
+
+var statusMap map[int]string
+
+func init() {
+	statusMap = make(map[int]string)
+	statusMap[StatusNew] = "Новый"
+	statusMap[StatusInWork] = "В работе"
+	statusMap[StatusDone] = "Выполнен"
+	statusMap[StatusCancelled] = "Отменён"
+}
 
 // TODO: напиши функцию statusName, которая принимает int
 // и возвращает строку с названием статуса.
@@ -33,4 +49,12 @@ func main() {
 	for _, s := range statuses {
 		fmt.Printf("Статус %d: %s\n", s, statusName(s))
 	}
+}
+
+func statusName(i int) string {
+	result, ok := statusMap[i]
+	if !ok {
+		result = "Неизвестный статус"
+	}
+	return result
 }

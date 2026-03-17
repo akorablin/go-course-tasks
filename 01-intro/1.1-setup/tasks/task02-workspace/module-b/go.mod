@@ -1,3 +1,3 @@
-module github.com/yourname/module-b
+module github.com/akorablin/module-b
 
 go 1.23
