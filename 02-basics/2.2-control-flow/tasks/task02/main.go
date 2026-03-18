@@ -19,7 +19,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // TODO: напиши функцию countVowels(s string) int
 // Внутри используй for range и switch для проверки каждого символа
@@ -29,4 +32,17 @@ func main() {
 	for _, s := range tests {
 		fmt.Printf("%q -> гласных: %d\n", s, countVowels(s))
 	}
+}
+
+func countVowels(s string) int {
+	result := 0
+	for _, symbol := range strings.ToLower(s) {
+		switch symbol {
+		case 'а', 'е', 'ё', 'и', 'й', 'о', 'у', 'ы', 'э', 'ю', 'я':
+			result++
+		case 'a', 'e', 'i', 'o', 'u':
+			result++
+		}
+	}
+	return result
 }

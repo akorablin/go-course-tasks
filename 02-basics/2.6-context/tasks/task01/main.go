@@ -28,14 +28,28 @@ import (
 
 // TODO: напиши функцию fetchData(ctx context.Context) (string, error)
 
+func fetchData(ctx context.Context) (string, error) {
+	select {
+	case <-ctx.Done():
+		return "", ctx.Err()
+	case <-time.After(3 * time.Second):
+		return "данные получены", nil
+	}
+}
+
 func main() {
 	// TODO: создай контекст с таймаутом 1 секунда
 	// ctx, cancel := context.WithTimeout(...)
 	// defer cancel()
 
-	// TODO: вызови fetchData(ctx) и обработай результат
+	ctx, cancel := context.WithTimeout(context.Background(), 1000*time.Millisecond)
+	defer cancel()
 
-	_ = context.Background() // убери когда начнёшь использовать context
-	_ = fmt.Println          // убери когда начнёшь использовать fmt
-	_ = time.Second          // убери когда начнёшь использовать time
+	// TODO: вызови fetchData(ctx) и обработай результат
+	_, err := fetchData(ctx)
+	if err != nil {
+		fmt.Println("Запрос не успел: ", err)
+	} else {
+		fmt.Println("Ok")
+	}
 }
